@@ -1,0 +1,60 @@
+GET: localhost:8080/api/v1/employees
+Results: []
+
+POST: localhost:8080/api/v1/employees
+{
+"id": 1,
+"firstName": "Duraivelan",
+"lastName": "Sai Natarajan",
+"emailId": "d.sainatarajan@duratechsolutions.in"
+}
+Result:
+{
+    "id": 1,
+    "firstName": "Duraivelan",
+    "lastName": "Sai Natarajan",
+    "emailId": "d.sainatarajan@duratechsolutions.in",
+    "links": [
+        {
+            "rel": "all-employees",
+            "href": "http://localhost:8080/api/v1/employees"
+        }
+    ]
+}
+
+GET: localhost:8080/api/v1/employees
+Headers:
+Content-Type: application/xml
+Accept: application/xml
+
+Result:
+<List>
+    <item>
+        <id>1</id>
+        <firstName>Duraivelan</firstName>
+        <lastName>Sai Natarajan</lastName>
+        <emailId>d.sainatarajan@duratechsolutions.in</emailId>
+    </item>
+</List>
+
+POST: localhost:8080/api/v1/employees
+Headers:
+Content-Type: application/xml
+Accept: application/xml
+<Employee>
+	<id>2</id>
+	<firstName>Moses</firstName>
+	<lastName>Moses</lastName>
+	<emailId>Moses@gmail.in</emailId>
+</Employee>
+Results:
+<EntityModel>
+    <id>2</id>
+    <firstName>Moses</firstName>
+    <lastName>Moses</lastName>
+    <emailId>Moses@gmail.in</emailId>
+    <links>
+        <rel>all-employees</rel>
+        <href>http://localhost:8080/api/v1/employees</href>
+    </links>
+</EntityModel>
