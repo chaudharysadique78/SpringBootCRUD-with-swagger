@@ -1,0 +1,53 @@
+#Install docker and run it
+ 
+sudo apt update && sudo apt install docker.io -y
+sudo usermod -aG docker $USER
+docker ps
+
+#Re launch the ssh again
+
+docker run --name web1 -d httpd
+docker ps
+docker inspect web1
+docker inspect web1 | grep IPAddress
+curl 172.17.0.2
+docker stop web1
+docker ps 
+docker ps -a
+curl 172.17.0.2
+# Failed response
+docker start web1
+docker ps 
+curl 172.17.0.2
+ 
+
+
+#To run and build spring jar
+
+sudo apt install unzip -y  //install unzip
+sudo apt install openjdk-11-jdk maven -y  //install openjdk and maven
+git clone https://github.com/dsainatarajan/SpringBootMicroservices.git
+cd SpringBootMicroservices/
+unzip springboot2-jpa-h2-Swagger-hateoas-xmlcontentnegotiation.zip 
+cd springboot2-jpa-h2-crud-example_withSwagger/
+mvn package
+
+cat Dockerfile  //to check contenet of docker file
+cp target/springboot2-jpa-crud-example-0.0.1-SNAPSHOT.jar ..
+ls ..
+cd ..
+mkdir springapp
+cp Dockerfile springapp/
+cp springboot2-jpa-crud-example-0.0.1-SNAPSHOT.jar springapp/
+cd springapp/
+docker images
+docker build -t springapp:latest .
+docker images
+docker run -p 8081:8080 -d springapp
+# 8081 -> Host Machine port
+# 8080 -> Container Port
+docker ps
+
+
+#To test API of application
+curl localhost:8081/api/v1/employees
